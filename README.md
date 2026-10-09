@@ -1,5 +1,5 @@
 # mclanrebroadcast
-(MC Lan Re-broadcast)
+(MC LAN Re-broadcast)
 
 A proxy to broadcast a remote Minecraft Java server to local devices over LAN so it shows up under the ingame LAN games list.
 
