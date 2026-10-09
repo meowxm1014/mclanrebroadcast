@@ -1,6 +1,6 @@
 # mclanrebroadcast
 
-A proxy to broadcast a remote Minecraft Java server to local devices over LAN so it shows up under the in-game LAN games list.
+A proxy to broadcast a remote Minecraft Java server to local devices over LAN so it shows up under the ingame LAN games list.
 
 ## Setup
 
