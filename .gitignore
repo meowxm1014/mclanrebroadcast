@@ -29,3 +29,4 @@ rustc-ice-*.txt
 /target
 
 .env
+config.json
