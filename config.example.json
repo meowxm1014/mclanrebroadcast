@@ -1,0 +1,9 @@
+{
+  "server_address": "your.server.ip:25565",
+  "local_listen_port": 25565,
+  "motd": "Join Me!",
+  "multicast_addr": "224.0.2.60:4445",
+  "referrer_string": "lan_referrer",
+  "max_concurrent_clients": 32,
+  "connect_timeout_seconds": 10
+}

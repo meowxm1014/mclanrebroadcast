@@ -1,0 +1,50 @@
+// ============================================================================
+// PaperMC Plugin Snippets for Reading LAN Proxy Referrer
+// ============================================================================
+
+// Option 1: In PlayerJoinEvent (Simplest - directly on the Player)
+// ----------------------------------------------------------------------------
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerJoinEvent;
+import java.net.InetSocketAddress;
+
+public class LanReferrerListener implements Listener {
+
+    @EventHandler
+    public void onPlayerJoin(PlayerJoinEvent event) {
+        InetSocketAddress virtualHost = event.getPlayer().getVirtualHost();
+
+        if (virtualHost != null && virtualHost.getHostString().contains("//lan_referrer")) {
+            event.getPlayer().sendMessage("§aWelcome! Detected connection via LAN proxy.");
+            System.out.println(event.getPlayer().getName() + " joined via LAN proxy!");
+        }
+    }
+}
+
+
+// Option 2: In PlayerHandshakeEvent (Paper-specific - early intercept & cleanup)
+// ----------------------------------------------------------------------------
+// Fires during the initial handshake before authentication.
+// Useful if you want to detect the tag and then clean it up so other plugins
+// only see the clean hostname.
+
+import com.destroystokyo.paper.event.player.PlayerHandshakeEvent;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+
+public class LanHandshakeListener implements Listener {
+
+    @EventHandler
+    public void onHandshake(PlayerHandshakeEvent event) {
+        String hostname = event.getServerHostname();
+
+        if (hostname != null && hostname.contains("//lan_referrer")) {
+            System.out.println("Handshake received from LAN proxy for socket: " + event.getSocketAddressHostname());
+
+            // Optional: Strip the tag so downstream plugins see the clean domain
+            String cleanHostname = hostname.replace("//lan_referrer", "");
+            event.setServerHostname(cleanHostname);
+        }
+    }
+}
